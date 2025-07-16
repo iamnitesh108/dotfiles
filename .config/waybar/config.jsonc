@@ -1,0 +1,330 @@
+// -*- mode: jsonc -*-
+{
+  // "layer": "top", // Waybar at top layer
+  // "position": "bottom", // Waybar position (top|bottom|left|right)
+  //"height": 20, // Waybar height (to be removed for auto height)
+  // "width": 1280, // Waybar width
+  "spacing": 0, // Gaps between modules (4px)
+
+  // Choose the order of the modules
+  "modules-left": [
+    "sway/workspaces",
+    "custom/spacer-m",
+    "cpu",
+    "memory",
+    "custom/swap",
+    //"sway/mode",
+    "custom/wifi_speed",
+    "custom/spacer-m",
+    "sway/scratchpad"
+    //"custom/media"
+  ],
+  "modules-center": [
+    "clock"
+  ],
+  "modules-right": [
+    //"custom/copyq",
+    "custom/clipboard",
+    "custom/spacer",
+    //"mpd",
+    //"idle_inhibitor",
+    "pulseaudio",
+    "custom/spacer",
+    "network",
+    //"power-profiles-daemon",
+    //"cpu",
+    //"memory",
+    //"temperature",
+    //"backlight",
+    //"keyboard-state",
+    //"sway/language",
+    "battery",
+    //`"battery#bat2",
+    //"tray",
+    "custom/power"
+  ],
+
+  // Modules configuration
+  "custom/clipboard": {
+    "exec": "~/.config/waybar/scripts/clipboard.sh",
+    "interval": 1,
+    "tooltip": false
+  },
+
+  "custom/wifi_speed": {
+    "exec": "~/.config/waybar/scripts/wifi_speed.sh",
+    "interval": 2,
+    "format": "{}",
+    "tooltip": false
+  },
+
+  "custom/copyq-test": {
+    "exec": "content=$(wl-paste 2>/dev/null | cut -c1-40 | tr -d '\\n'); [ -n \"$content\" ] && echo \"📋 $content\" || echo \"📋 Empty\"",
+    "interval": 5,
+    "on-click": "copyq menu",
+    "tooltip": false
+  },
+
+  "sway/workspaces": {
+    "disable-scroll": true,
+    "all-outputs": true,
+    "warp-on-scroll": true,
+    //"format": "{name}: {icon}",
+    "format-icons": {
+      //"1": "",
+      //"2": "",
+      //"3": "",
+      //"4": "",
+      //"5": "",
+      //"urgent": "",
+      //"focused": "",
+      //"default": ""
+    }
+  },
+
+  "custom/spacer": {
+    "format": " ",
+    "tooltip": false
+  },
+
+  "custom/spacer-m": {
+    "format": "        ",
+    "tooltip": false
+  },
+
+  "keyboard-state": {
+    "numlock": true,
+    "capslock": true,
+    "format": "{name} {icon}",
+    "format-icons": {
+      "locked": "",
+      "unlocked": ""
+    }
+  },
+
+  "sway/mode": {
+    "format": "<span style=\"italic\">{}</span>"
+  },
+
+  "sway/scratchpad": {
+    "format": "{icon}    {count}",
+    "show-empty": false,
+    "format-icons": ["", ""],
+    "tooltip": true,
+    "tooltip-format": "{app}: {title}"
+  },
+
+  "mpd": {
+    "format": "{stateIcon} {consumeIcon}{randomIcon}{repeatIcon}{singleIcon}{artist} - {album} - {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S}) ⸨{songPosition}|{queueLength}⸩ {volume}% ",
+    "format-disconnected": "Disconnected ",
+    "format-stopped": "{consumeIcon}{randomIcon}{repeatIcon}{singleIcon}Stopped ",
+    "unknown-tag": "N/A",
+    "interval": 5,
+    "consume-icons": { "on": " " },
+    "random-icons": {
+      "off": "<span color=\"#f53c3c\"></span> ",
+      "on": " "
+    },
+    "repeat-icons": { "on": " " },
+    "single-icons": { "on": "1 " },
+    "state-icons": {
+      "paused": "",
+      "playing": ""
+    },
+    "tooltip-format": "MPD (connected)",
+    "tooltip-format-disconnected": "MPD (disconnected)"
+  },
+
+  "idle_inhibitor": {
+    "format": "{icon}",
+    "format-icons": {
+      "activated": "",
+      "deactivated": ""
+    }
+  },
+
+  "tray": {
+    // "icon-size": 21,
+    "spacing": 10
+    // "icons": {
+    //   "blueman": "bluetooth",
+    //   "TelegramDesktop": "$HOME/.local/share/icons/hicolor/16x16/apps/telegram.png"
+    // }
+  },
+
+  "clock": {
+    "format": "{:%I:%M %p  %b %d}", // e.g. 08:32 PM  Jul 13
+    "tooltip-format": "<big>{:%A, %B %d}</big>\n<tt><big>{calendar}</big></tt>",
+    "format-alt": "{:%Y-%m-%d}"
+  },
+
+  "cpu": {
+    "format": "  {usage}% |",
+    "tooltip": false
+    // "interval": 1
+  },
+
+  "memory": {
+    "format": "󰘚  {}% |"
+  },
+
+  "custom/swap": {
+    "exec": "~/.config/waybar/scripts/swap.sh",
+    "interval": 10,
+    "tooltip": false
+  },
+
+  "custom/memory": {
+    "exec": "~/.config/waybar/scripts/memory.sh",
+    "interval": 10,
+    "tooltip": false
+  },
+
+  "temperature": {
+    // "thermal-zone": 2,
+    // "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
+    "critical-threshold": 80,
+    // "format-critical": "{temperatureC}°C {icon}",
+    "format": "{temperatureC}°C {icon}",
+    "format-icons": ["", "", ""]
+  },
+
+  "backlight": {
+    // "device": "acpi_video1",
+    "format": "{percent}% {icon}",
+    "format-icons": ["", "", "", "", "", "", "", "", ""]
+  },
+
+  "battery-test": {
+    "states": {
+      // "good": 95,
+      "warning": 30,
+      "critical": 15
+    },
+    "format": "{icon} {capacity}%",
+    "format-full": "{icon}   {capacity}%",
+    "format-charging": "󰂄 {capacity}%",
+    "format-plugged": " {capacity}%",
+    "format-alt": "{icon} {time}",
+    "format-icons": ["󰂎", "󰁼", "󰁾", "󰂀", "󰁹"]
+  },
+
+  "battery": {
+    "states": {
+      "good": 80,
+      "warning": 30,
+      "critical": 15
+    },
+    "format": "{icon} {capacity}%",
+    "format-full": "{icon} {capacity}% 󰚥",
+    "format-charging": "<span foreground='#4CAF50'>{icon}  </span>{capacity}%",
+    "format-plugged": "<span foreground='#4ade80'>󰚥 </span>{capacity}%",
+    "format-alt": "{icon} {capacity}% • {time} • {power:.1f}W",
+    "format-time": "{H}h {M}m",
+    "format-icons": {
+      "charging": ["󰢜", "󰂆", "󰂇", "󰂈", "󰢝", "󰂉", "󰢞", "󰂊", "󰂋", "󰂅"],
+      "default": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"]
+    },
+    "tooltip": true,
+    "tooltip-format": "Battery: {capacity}%\nTime: {time}\nPower: {power:.1f}W\nCycles: {cycles}",
+    "on-click-right": "gnome-power-manager",
+    "interval": 10,
+    "max-length": 25
+  },
+
+  "battery#bat2": {
+    "bat": "BAT2"
+  },
+
+  "power-profiles-daemon": {
+    "format": "{icon}",
+    "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
+    "tooltip": true,
+    "format-icons": {
+      "default": "",
+      "performance": "",
+      "balanced": "",
+      "power-saver": ""
+    }
+  },
+
+  "network-test": {
+    // "interface": "wlp2*", // (Optional) To force the use of this interface
+    "format-wifi": "    {essid} ({signalStrength}%)",
+    "format-ethernet": "   {ipaddr}/{cidr}",
+    "tooltip-format": "   {ifname} via {gwaddr}",
+    "format-linked": "   {ifname} (No IP)",
+    "format-disconnected": "⚠ Disconnected",
+    "format-alt": "{ifname}: {ipaddr}/{cidr}",
+    "on-click": "gnome-control-center wifi"
+  },
+
+  "network": {
+    "format-wifi": "    {essid} ({signalStrength}%)",
+    "format-disconnected": "⚠ Disconnected",
+    "on-click": "~/.config/waybar/scripts/wifi_menu.sh"
+  },
+
+  "pulseaudio-test": {
+    // "scroll-step": 1, // %, can be a float
+    "format": "{icon}    {volume}% {format_source}",
+    "format-bluetooth": "{volume}% {icon} {format_source}",
+    "format-bluetooth-muted": " {icon} {format_source}",
+    "format-muted": " {format_source}",
+    "format-source": "{volume}% ",
+    "format-source-muted": "",
+    "format-icons": {
+      "headphone": "",
+      "hands-free": "",
+      "headset": "",
+      "phone": "",
+      "portable": "",
+      "car": "",
+      "default": ["", "", ""]
+    },
+    "on-click": "~/.config/waybar/scripts/pavucontrol_float.sh"
+  },
+
+  "pulseaudio": {
+    // "scroll-step": 1, // optional
+    "format": "{icon}    {volume}% | {format_source}",
+    "format-bluetooth": "{icon}  {volume}% | {format_source}",
+    "format-bluetooth-muted": " {icon}  | {format_source}",
+    "format-muted": " {format_source}",
+    "format-source": "  {volume}%",
+    "format-source-muted": "",
+    "format-icons": {
+      "headphone": "",
+      "hands-free": "",
+      "headset": "",
+      "phone": "",
+      "portable": "",
+      "car": "",
+      "default": ["", "", ""]
+    },
+    
+   
+"on-click": "pgrep -x pavucontrol && pkill -x pavucontrol || pavucontrol &"
+
+
+  },
+
+  "custom/media": {
+    "format": "{icon} {text}",
+    "return-type": "json",
+    "max-length": 40,
+    "format-icons": {
+      "spotify": "",
+      "default": "🎜"
+    },
+    "escape": true,
+    "exec": "$HOME/.config/waybar/mediaplayer.py 2> /dev/null"
+    // "exec": "$HOME/.config/waybar/mediaplayer.py --player spotify 2> /dev/null"
+  },
+
+  "custom/power": {
+    "format": "⏻",
+    "tooltip": false,
+    "on-click": "~/.config/waybar/scripts/power_menu.sh"
+  }
+}
