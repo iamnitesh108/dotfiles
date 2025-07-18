@@ -50,4 +50,9 @@ button {
   min-width: 10px;
 }
 
-
+#clock {
+    background-color: #555;
+    color: #cdd6f4;
+    padding: 0 10px;
+    font-weight: 700;
+}

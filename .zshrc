@@ -104,5 +104,35 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias brave-wayland='brave --enable-features=UseOzonePlatform --ozone-platform=wayland'
-
 alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+
+alias ls='eza'
+alias lsi='eza --icons'                           # basic ls
+
+alias ll='eza -lh'                      # long format, human-readable
+alias lli='eza -lh --icons'
+
+alias la='eza -lha'                     # long + hidden files
+alias lai='eza -lha --icons'
+
+# alias lt='eza --tree'                   # tree view
+alias lg='eza -lh --git'                # with git status
+alias l.='eza -lhd .*'                  # hidden dotfiles only
+
+# alias lsi='eza -lh --icons'             # icons, long format
+# alias lai='eza -lha --icons'            # all + hidden + icons
+# alias lti='eza --tree --icons'          # tree view with icons
+alias lgi='eza -lh --git --icons'       # git + icons
+
+alias lss='eza -lhS'                    # sort by size
+alias lst='eza -lht'                    # sort by modified time
+alias lse='eza -lh --sort=extension'    # sort by extension
+
+# Dynamic tree function: lt -2, lt -3, etc.
+# Dynamic eza tree: lt -2, lt -3, etc.
+
+
+
+alias zl='zoxide query -l'    # list all tracked directories
+
+eval "$(zoxide init zsh)"
