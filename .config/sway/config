@@ -363,9 +363,29 @@ bindsym Alt+space workspace next
 # bindsym $mod+c exec "clipman pick -t wofi"
 
 
-exec_always clipman store --daemon
-bindsym $mod+c exec "clipman pick --tool wofi | wl-copy"
+# exec_always clipman store --daemon
+# bindsym $mod+c exec "clipman pick --tool wofi | wl-copy"
 
+# exec clipse -listen                                                                        # run the background listener on startup
+#
+# for_window [app_id="clipse"] floating enable, move position center, resize set 80ppt 80ppt # style window to look nice
+#
+# bindsym $mod+c exec alacritty --class clipse -e clipse                               # bind floating shell with clipse TUI
+
+# Example: bindsym $mod+V exec alacritty --class clipse -e clipse
+# Start clipse listener on startup
+exec_always --no-startup-id pkill clipse; clipse -listen
+
+# Configure clipse window behavior
+for_window [app_id="clipse"] floating enable, move position center, resize set 80ppt 80ppt 
+
+# bindsym $mod+c exec alacritty --class clipse --command sh -c 'clipse'
+bindsym $mod+c exec foot --app-id=clipse clipse
+
+
+# Alternative terminal options:
+# bindsym $mod+V exec kitty --class clipse -e clipse
+# bindsym $mod+V exec foot --app-id=clipse clipse
 
 for_window [app_id=\"pavucontrol\"] floating enable
 
