@@ -125,7 +125,7 @@ alias l.='eza -lhd .*'                  # hidden dotfiles only
 alias lgi='eza -lh --git --icons'       # git + icons
 
 alias lss='eza -lhS'                    # sort by size
-alias lst='eza -lht'                    # sort by modified time
+alias lst='eza -l -s modified --reverse'                    # sort by modified time
 alias lse='eza -lh --sort=extension'    # sort by extension
 
 # Dynamic tree function: lt -2, lt -3, etc.
