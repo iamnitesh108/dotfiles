@@ -4,6 +4,13 @@
 #
 # Read `man 5 sway` for a complete reference.
 
+
+
+# default_floating_border normal
+titlebar_padding 1
+titlebar_border_thickness 0
+
+
 ### Variables
 #
 # Logo key. Use Mod1 for Alt.
@@ -16,7 +23,7 @@ set $down j
 set $up k
 set $right l
 # Your preferred terminal emulator
-set $term terminator
+set $term foot
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
@@ -24,7 +31,10 @@ set $menu wofi
 ### Output configuration
 #
 # Default wallpaper (more resolutions ggVGavailable in /usr/share/backgrounds/sway/)
-output * bg /usr/share/backgrounds/sway/4k-Arch-Planet.png fill
+# output * bg /usr/share/backgrounds/sway/4k-Arch-Planet.png fill
+
+output * bg /home/nitesh/Downloads/wallhaven-5yw5y8_1920x1080.png fill
+
 
 #
 # Example configuration:
@@ -37,10 +47,20 @@ output * bg /usr/share/backgrounds/sway/4k-Arch-Planet.png fill
 #
 # Example configuration:
 
-exec swayidle -w \
-         timeout 300 'swaylock -f -c 000000' \
-         timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
-         before-sleep 'swaylock -f -c 000000'
+# exec swayidle -w \
+#          timeout 300 'swaylock -f -c 000000' \
+#          timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
+#          before-sleep 'swaylock -f -c 000000'
+
+#-------------------------
+#-- Idle configuration: --
+#-------------------------
+
+	# Launch swayidle after 5 minutes of inactivity:
+	exec swayidle -w \
+	          timeout 300 'swaylock -f -c 000000' \
+	          timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
+	          before-sleep 'swaylock -f -c 000000'
 
 # exec_always swayidle -w \
 #   timeout 300 'swaylock -f -c 000000' \
@@ -325,8 +345,8 @@ include /etc/sway/config.d/*
 
 # exec gammastep -c ~/.config/gammastep/config.ini
 
-exec_always gammastep -c ~/.config/gammastep/config.ini
-
+# exec_always gammastep -c ~/.config/gammastep/config.ini
+# exec gammastep -O 4500
 
 
 bindsym Alt+space workspace next
@@ -336,14 +356,83 @@ bindsym Alt+space workspace next
 
 
 # Start clipman and store clipboard history
-exec wl-paste --watch clipman store
-exec clipman
+# exec wl-paste --watch clipman store
+# exec clipman
 
 # Shortcut to open clipboard history with wofi
-bindsym $mod+c exec "clipman pick -t wofi"
+# bindsym $mod+c exec "clipman pick -t wofi"
+
+
+exec_always clipman store --daemon
+bindsym $mod+c exec "clipman pick --tool wofi | wl-copy"
+
 
 for_window [app_id=\"pavucontrol\"] floating enable
 
 
 # Nitesh Kumar Yadav
 
+
+exec_always --no-startup-id dunst
+
+
+# Screenshot full screen and notify
+bindsym Print exec grim ~/Pictures/Screenshot/screenshot-$(date +%Y%m%d-%H%M%S).png && notify-send -t 1000 "Screenshot saved"
+
+# Screenshot selected area and notify
+bindsym Shift+Print exec grim -g "$(slurp)" ~/Pictures/Screenshot/screenshot-$(date +%Y%m%d-%H%M%S).png && notify-send -t 1000 "Screenshot saved"
+
+
+# bindsym $mod+Shift+x exec swaylock -f -c 000000
+
+#---------------------------
+#-- Graphical appearance: --
+#---------------------------
+
+	# Gaps' default size & behavior:
+	# gaps inner 7
+	# smart_gaps on
+	#
+	# # Gaps' size modifiers:
+	#  bindsym $mod+plus gaps inner current plus 7
+	# bindsym $mod+Shift+plus gaps inner current minus 7
+	# bindsym $mod+o gaps inner current set 0
+	#
+	# Borders:
+	# default_border pixel 3
+	# smart_borders on
+	# default_floating_border normal
+
+	# Toggle border style:
+	bindsym $mod+Shift+b exec swaymsg border toggle
+  bindsym $alt+Shift+b exec swaymsg border toggle
+	# Colors:
+	#  set $ac		#839496
+	# set $uf		#888888
+	# set $fg		#283337
+	# set $bg		#383838
+	# set $ub		#f2777a
+	# set $bar	#4B4B4B
+	# set $ta		#FFFFFF
+
+	# Window Border color:		border:		backgr:		text:		indicator:
+	# client.focused			$ta		$ac		$ta		$ac
+	# client.focused_inactive		$uf     	$bg		$uf		$ac
+	# client.unfocused		$uf     	$bg		$uf		$ac
+	# client.urgent			$uf     	$ub		$fg		$ac
+	#
+
+
+
+# Hold $mod + left mouse button to move floating windows
+# Set border for floating windows
+# Set border with specific width for floating windows
+# Default border for tiled windows
+floating_modifier $mod
+
+
+# exec gammastep -c ~/.config/gammastep/config.ini
+
+
+
+exec gammastep -c ~/.config/gammastep/config.ini -v
