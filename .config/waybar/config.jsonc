@@ -10,6 +10,8 @@
   "modules-left": [
     "sway/workspaces",
     "custom/spacer-m",
+    "custom/spacer-m",
+    "custom/spacer-m",
     "cpu",
     "memory",
     "custom/swap",
@@ -25,11 +27,13 @@
   "modules-right": [
     //"custom/copyq",
     "custom/clipboard",
-    "custom/spacer",
+    "custom/spacer-m",
+    "custom/spacer-m",
+    "custom/spacer-m",
     //"mpd",
     //"idle_inhibitor",
-    "pulseaudio",
-    "custom/spacer",
+    "group/audio",
+    "custom/spacer-m",
     "network",
     //"power-profiles-daemon",
     //"cpu",
@@ -43,7 +47,11 @@
     //"tray",
     "custom/power"
   ],
-
+  "group/audio": {
+    "orientation": "horizontal",
+    "modules": ["backlight", "pulseaudio"],
+    // "class": "group-audio"
+  },
   // Modules configuration
   "custom/clipboard": {
     "exec": "~/.config/waybar/scripts/clipboard.sh",
@@ -107,7 +115,7 @@
   },
 
   "sway/scratchpad": {
-    "format": "{icon}    {count}",
+    "format": "{icon}   {count}",
     "show-empty": false,
     "format-icons": ["", ""],
     "tooltip": true,
@@ -153,19 +161,19 @@
   },
 
   "clock": {
-    "format": "{:%I:%M %p  %b %d}", // e.g. 08:32 PM  Jul 13
+    "format": "{:%I:%M %p %b %d}", // e.g. 08:32 PM  Jul 13
     "tooltip-format": "<big>{:%A, %B %d}</big>\n<tt><big>{calendar}</big></tt>",
     "format-alt": "{:%Y-%m-%d}"
   },
 
   "cpu": {
-    "format": "  {usage}% |",
+    "format": "  {usage}%",
     "tooltip": false
     // "interval": 1
   },
 
   "memory": {
-    "format": "󰘚  {}% |"
+    "format": "󰘚  {}%"
   },
 
   "custom/swap": {
@@ -191,7 +199,7 @@
 
   "backlight": {
     // "device": "acpi_video1",
-    "format": "{percent}% {icon}",
+    "format": "{icon}  {percent}%  ",
     "format-icons": ["", "", "", "", "", "", "", "", ""]
   },
 
@@ -203,8 +211,8 @@
     },
     "format": "{icon} {capacity}%",
     "format-full": "{icon}   {capacity}%",
-    "format-charging": "󰂄 {capacity}%",
-    "format-plugged": " {capacity}%",
+    "format-charging": "󰂄  {capacity}%",
+    "format-plugged": "  {capacity}%",
     "format-alt": "{icon} {time}",
     "format-icons": ["󰂎", "󰁼", "󰁾", "󰂀", "󰁹"]
   },
@@ -216,9 +224,13 @@
       "critical": 15
     },
     "format": "{icon} {capacity}%",
-    "format-full": "{icon} {capacity}% 󰚥",
-    "format-charging": "<span foreground='#4CAF50'>{icon}  </span>{capacity}%",
-    "format-plugged": "<span foreground='#4ade80'>󰚥 </span>{capacity}%",
+    "format-full": "{icon} {capacity}%  󰚥",
+    // "format-charging": "<span foreground='#4CAF50' size='large' >{icon}  </span>{capacity}%",
+    "format-charging": "{icon}  {capacity}%",
+
+    //"format-plugged": "<span foreground='#4ade80'>󰚥 </span>{capacity}%",
+    "format-plugged": "󰚥 {capacity}%",
+
     "format-alt": "{icon} {capacity}% • {time} • {power:.1f}W",
     "format-time": "{H}h {M}m",
     "format-icons": {
@@ -260,8 +272,9 @@
   },
 
   "network": {
-    "format-wifi": "    {essid} ({signalStrength}%)",
+    "format-wifi": "{icon}   {essid}",
     "format-disconnected": "⚠ Disconnected",
+    "format-icons": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"], // Icons for 0-20%, 21-40%, 41-60%, 61-80%, 81-100%
     "on-click": "~/.config/waybar/scripts/wifi_menu.sh"
   },
 
@@ -287,20 +300,20 @@
 
   "pulseaudio": {
     // "scroll-step": 1, // optional
-    "format": "{icon}    {volume}% | {format_source}",
+    "format": "{icon}  {volume}%   {format_source}",
     "format-bluetooth": "{icon}  {volume}% | {format_source}",
     "format-bluetooth-muted": " {icon}  | {format_source}",
     "format-muted": " {format_source}",
-    "format-source": "  {volume}%",
+    "format-source": "󰍬 {volume}%",
     "format-source-muted": "",
     "format-icons": {
-      "headphone": "",
+      "headphone": " ",
       "hands-free": "",
       "headset": "",
       "phone": "",
       "portable": "",
       "car": "",
-      "default": ["", "", ""]
+      "default": ["󰕿", "󰖀", "󰕾"]
     },
     
    
@@ -326,5 +339,13 @@
     "format": "⏻",
     "tooltip": false,
     "on-click": "~/.config/waybar/scripts/power_menu.sh"
+  },
+  "custom/power-test": {
+    "format": "⏻",  // You can use an icon or text like "Power"
+    "tooltip": "Logout / Shutdown",
+    "on-click": "wlogout",
+    "on-click-right": "systemctl suspend", // Optional right-click action
+    "interval": 3600  // No frequent updates needed
   }
+
 }

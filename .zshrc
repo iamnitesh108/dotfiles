@@ -135,4 +135,6 @@ alias lse='eza -lh --sort=extension'    # sort by extension
 
 alias zl='zoxide query -l'    # list all tracked directories
 
+# alias vi='nvim'
+
 eval "$(zoxide init zsh)"

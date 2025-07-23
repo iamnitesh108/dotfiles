@@ -44,7 +44,7 @@ rx_rate=$(((rx_bytes - prev_rx) / time_diff))
 rx_mbps_int=$((rx_rate * 800 / 1000000))  # *8/1000000 * 100 for 2 decimals
 
 # Format with 2 decimal places and download icon
-printf "| ⬇ %d.%02d Mbps\n" $((rx_mbps_int / 100)) $((rx_mbps_int % 100))
+printf "󰛀  %d.%02d Mbps\n" $((rx_mbps_int / 100)) $((rx_mbps_int % 100))
 
 # Store current values
 echo "$rx_bytes $current_time" > "$CACHE_FILE"

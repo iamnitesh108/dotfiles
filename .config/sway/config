@@ -57,10 +57,20 @@ output * bg /home/nitesh/Downloads/wallhaven-5yw5y8_1920x1080.png fill
 #-------------------------
 
 	# Launch swayidle after 5 minutes of inactivity:
-	exec swayidle -w \
-	          timeout 300 'swaylock -f -c 000000' \
-	          timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
-	          before-sleep 'swaylock -f -c 000000'
+  # swaylock && sleep 1 && swaymsg "output * dpms off
+
+	# exec swayidle -w \
+	#           timeout 300 'swaylock -f -c 000000' \
+	#           timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
+	#           before-sleep 'swaylock -f -c 000000'
+
+exec swayidle -w \
+    timeout 300 'swaylock -f -c 000000' \
+    timeout 350 'swaymsg "output * dpms off"' \
+    resume 'swaymsg "output * dpms on"' \
+    timeout 900 'systemctl suspend' \
+    before-sleep 'swaylock -f' \
+    idlehint 300
 
 # exec_always swayidle -w \
 #   timeout 300 'swaylock -f -c 000000' \
@@ -96,6 +106,9 @@ output * bg /home/nitesh/Downloads/wallhaven-5yw5y8_1920x1080.png fill
     # Start a terminal
     bindsym $mod+Return exec $term
     bindsym $alt+Return exec $term
+    # Floating terminal
+    # bindsym $mod+Shift+Return exec sh -c 'swaymsg "for_window [app_id=floating-term] floating enable"; foot --app-id=floating-term; swaymsg "for_window [app_id=floating-term]"'
+    bindsym $mod+Shift+Return exec 'swaymsg "for_window [app_id=floating-term] floating enable" && foot --app-id=floating-term'
 
 
     # Kill focused window
@@ -345,8 +358,8 @@ include /etc/sway/config.d/*
 
 # exec gammastep -c ~/.config/gammastep/config.ini
 
-# exec_always gammastep -c ~/.config/gammastep/config.ini
-# exec gammastep -O 4500
+exec_always gammastep -c ~/.config/gammastep/config.ini
+# exec_always gammastep -O 4500
 
 
 bindsym Alt+space workspace next
@@ -424,24 +437,23 @@ bindsym Shift+Print exec grim -g "$(slurp)" ~/Pictures/Screenshot/screenshot-$(d
 	# default_floating_border normal
 
 	# Toggle border style:
-	bindsym $mod+Shift+b exec swaymsg border toggle
-  bindsym $alt+Shift+b exec swaymsg border toggle
-	# Colors:
-	#  set $ac		#839496
-	# set $uf		#888888
-	# set $fg		#283337
-	# set $bg		#383838
-	# set $ub		#f2777a
-	# set $bar	#4B4B4B
-	# set $ta		#FFFFFF
+bindsym $mod+Shift+b exec swaymsg border toggle
+bindsym $alt+Shift+b exec swaymsg border toggle
 
-	# Window Border color:		border:		backgr:		text:		indicator:
-	# client.focused			$ta		$ac		$ta		$ac
-	# client.focused_inactive		$uf     	$bg		$uf		$ac
-	# client.unfocused		$uf     	$bg		$uf		$ac
-	# client.urgent			$uf     	$ub		$fg		$ac
-	#
+# Gruvbox Colors:
+set $ac		#458588	
+set $uf		#a89984	
+set $fg		#ebdbb2		
+set $bg		#282828		
+set $ub		#cc241d	
+set $bar	#3c3836		
+set $ta		#fabd2f		
 
+# Window Border color:		border:		backgr:		text:		indicator:
+client.focused			$ta		$ac		$ta		$ac
+client.focused_inactive		$uf     	$bg		$uf		$ac
+client.unfocused		$uf     	$bg		$uf		$ac
+client.urgent			$uf     	$ub		$fg		$ac
 
 
 # Hold $mod + left mouse button to move floating windows
@@ -455,4 +467,4 @@ floating_modifier $mod
 
 
 
-exec gammastep -c ~/.config/gammastep/config.ini -v
+# exec_always gammastep -c ~/.config/gammastep/config.ini -v

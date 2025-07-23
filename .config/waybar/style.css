@@ -1,59 +1,172 @@
-window#waybar {
-    /* height: 20px; */
-    /* min-height: 0px; */
-    padding: 0;
-    margin: 0;
-    background-color: black;
-    color: white;
-    border: none;
-    box-shadow: none;
-}
+/* ~/.config/waybar/style.css */
+
+/* Catppuccin Mocha Palette */
+@define-color bg0 #1e1e2e;
+@define-color fg0 #eee;
+@define-color gray #a6adc8;
+@define-color red #f38ba8;
+@define-color green #a6e3a1;
+@define-color yellow #f9e2af;
+@define-color blue #89b4fa;
+@define-color magenta #f5c2e7;
+@define-color cyan #94e2d5;
+@define-color orange #fab387;
 
 * {
-    font-size: 12px;
-    font-weight: 600;
-    padding: 0 4px;
-    margin: 0;
+  font-family: "Fira Code";
+  font-size: 14px;
+  min-height: 20px;
+  font-weight: 500;
 }
 
-
-button {
-    border: 1px #999 solid;
-    border-radius: 0;
+#waybar {
+  background-color: @bg0;
+  color: @fg0;
+  border-radius: 0px;
 }
+
+#waybar .modules-left,
+#waybar .modules-center,
+#waybar .modules-right {
+  background-color: @bg0;
+  padding: 0 8px;
+}
+
+/* Workspaces */
 #workspaces button {
-    padding: 0 5px;
-    background-color: transparent;
-    color: #ffffff;
-}
-
-#workspaces button:hover {
-    background: rgba(150, 150, 150, 0.0);
+  padding: 0 5px;
+  background-color: rgba(30, 30, 46, 0.8);
+  color: @gray;
+  border-bottom: 2px solid transparent;
 }
 
 #workspaces button.focused {
-    background-color: #64727D;
+  background-color: rgba(137, 180, 250, 0.2);
+  color: @blue;
+  border-bottom: 2px solid @blue;
 }
 
 #workspaces button.urgent {
-    background-color: #eb4d4b;
-}
-#battery {
-  margin-right: 10px;
-}
-#network {
-  margin-right: 10px;
-}
-#pulseaudio {
-  /* padding-right: 100px; */
-}
-#custom-spacer {
-  min-width: 10px;
+  background-color: rgba(243, 139, 168, 0.2);
+  color: @red;
+  border-bottom: 2px solid @red;
 }
 
+#workspaces button.active {
+  background-color: rgba(166, 227, 161, 0.2);
+  color: @green;
+  border-bottom: 2px solid @green;
+}
+
+#workspaces button:hover {
+  background-color: rgba(249, 226, 175, 0.2);
+  color: @fg0;
+  border-bottom: 2px solid @yellow;
+}
+
+/* Clock */
 #clock {
-    background-color: #333;
-    color: white;
-    padding: 0 10px;
-    font-weight: 700;
+  background-color: @bg0;
+  color: @fg0;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+/* CPU and Memory */
+#cpu,
+#memory,
+#custom-swap,
+#custom-wifi_speed {
+  background-color: @bg0;
+  color: @fg0;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#cpu {
+  background-color: @bg0;
+  color: @green;
+  padding: 2px 5px;
+}
+
+#cpu .icon {
+  margin-right: -2px;
+}
+
+#memory {
+  color: @cyan;
+}
+
+#custom-swap {
+  color: @blue;
+}
+
+#custom-wifi_speed {
+  color: @magenta;
+}
+
+/* Clipboard */
+#custom-clipboard {
+  background-color: @bg0;
+  color: @fg0;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+/* Pulseaudio */
+#pulseaudio {
+  padding-left: 4px;
+  padding-right: 4px;
+  color: @cyan;
+}
+
+#pulseaudio.muted {
+  color: @gray;
+}
+
+/* Backlight */
+#backlight {
+  color: @cyan;
+}
+
+/* Network */
+#network {
+  background-color: @bg0;
+  color: @fg0;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+#network.disconnected {
+  color: @red;
+}
+
+/* Battery */
+#battery {
+  background-color: @bg0;
+  color: @fg0;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+#battery.charging {
+  color: @green;
+}
+
+#battery.warning {
+  color: @yellow;
+}
+
+#battery.critical {
+  color: @red;
+}
+
+/* Power Button */
+#custom-power {
+  color: @red;
+  padding-right: 8px;
+}
+
+#custom-power:hover {
+  color: #c94f6d;
 }
